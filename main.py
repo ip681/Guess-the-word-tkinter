@@ -3,45 +3,44 @@ import tkinter as tk
 from playsound import playsound
 import winsound
 
-# Определяме константи
 MAX_TURNS = 12
 
-# Създаваме графичното приложение
+# Create the graphical application
 root = tk.Tk()
 root.iconbitmap('resources\icon.ico')
-root.title("Бесеница")
+root.title("Guess The Word")
 root.geometry("500x600")
 root.configure(bg='#e6f2ff')
 word = ""
 theme_name = ""
 words = ""
 
-# Определяне на случайна тена
+# Define random complexion
 
-theme_animals = ['котка', 'куче', 'маймуна', 'крава', 'крокодил', 'слон', 'лъв', 'тигър', 'жираф', 'зебра']
-theme_birds = ['гарван', 'орел', 'патица', 'врабче', 'гълъб', 'папагал', 'чайка', 'пеликан', 'фламинго', 'марабу']
-theme_jobs = ['програмист', 'аналитик', 'актьор', 'певец', 'инженер', 'архитект', 'бръснар', 'учен', 'адвокат',
-              'дизайнер']
-theme_body_parts = ['глава', 'врат', 'ръка', 'крак', 'крак', 'ръка', 'гърди', 'коляно', 'лакът', 'глезен']
+theme_animals = ['cat', 'dog', 'monkey', 'cow', 'crocodile', 'elephant', 'lion', 'tiger', 'giraffe', 'zebra']
+theme_birds = ['raven', 'eagle', 'duck', 'sparrow', 'dove', 'parrot', 'seagull', 'pelican', 'flamingo', 'marabou']
+theme_jobs = ['programmer', 'analyst', 'actor', 'singer', 'engineer', 'architect', 'barber', 'scientist', 'lawyer',
+                'designer']
+theme_body_parts = ['head', 'neck', 'arm', 'leg', 'foot', 'arm', 'chest', 'knee', 'elbow', 'ankle']
 
 theme_index = random.choice(range(0, 4))
 
 if theme_index == 0:
-    theme_name = "животни"
-    words = theme_animals
+     theme_name = "animals"
+     words = theme_animals
 elif theme_index == 1:
-    theme_name = "птици"
-    words = theme_birds
+     theme_name = "birds"
+     words = theme_birds
 elif theme_index == 2:
-    theme_name = "професии"
-    words = theme_jobs
+     theme_name = "professions"
+     words = theme_jobs
 elif theme_index == 3:
-    theme_name = "части на тялото"
-    words = theme_body_parts
+     theme_name = "body parts"
+     words = theme_body_parts
 
 word = random.choice(words)
 
-# Определяме променливи за думата, познатите букви и грешните опити
+# Define variables for the word, familiar letters, and wrong attempts
 guesses = set()
 wrong_guesses = set()
 wrong_attempts = 0
@@ -192,7 +191,7 @@ def guess_letter(letter):
         winsound.Beep(350, 200)
         winsound.Beep(450, 300)
         if all(letter in guesses for letter in word):
-            show_message(f"Поздравления! Познахте Думата беше '{word}'!")
+            show_message(f"Congratulations! You guessed The word is '{word}'!")
             file = "resources\win.mp3"
             playsound(file)
             # root.quit() # Не затваряме играта веднага след победа
@@ -203,24 +202,23 @@ def guess_letter(letter):
         update_display()
         winsound.Beep(250, 500)
         if wrong_attempts >= MAX_TURNS:
-            show_message(f"Загубихте! Думата беше '{word}'!")
+            show_message(f"You lost! The word was '{word}'!")
             file = "resources\lose.mp3"
             playsound(file)
-            # root.quit()  # Не затваряме играта веднага след загуба
+            # root.quit()  # We don't close the game immediately after a loss
 
 
-# Дефинираме функцията, която ще обновява дисплея на играта
+# Define the function that will refresh the game display
 def update_display():
 
-    theme_label.configure(text=f"Познай думата! Темата е: {theme_name.upper()}")
+    theme_label.configure(text=f"Guess the word! Theme is: {theme_name.upper()}")
     display_word = " ".join([letter if letter in guesses else "_" for letter in word])
     display_word_label.config(text=display_word)
     wrong_guesses_label.config(text="Грешни опити: " + ", ".join(sorted(wrong_guesses)))
     wrong_attempts_label.config(text=f"{get_wrong_attempts_word()}")
 
 
-# Дефинираме функцията, която показва съобщение на екрана
-
+# Define the function that displays a message on the screen
 def show_message(message):
     message_label.config(text=message)
 
