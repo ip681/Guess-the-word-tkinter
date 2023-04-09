@@ -1,4 +1,4 @@
-#Guess the word#
+#Guess the word #
 
 This is a word guessing game where a random category is dropped from which a random word is dropped.
 It is played by choosing letters of the alphabet that are marked in the word or in the wrong attempts.
