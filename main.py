@@ -7,7 +7,7 @@ MAX_TURNS = 12
 
 # Create the graphical application
 root = tk.Tk()
-root.iconbitmap('resources\icon.ico')
+root.iconbitmap('resources/icon.ico')
 root.title("Guess The Word")
 root.geometry("500x600")
 root.configure(bg='#e6f2ff')
@@ -20,23 +20,23 @@ words = ""
 theme_animals = ['cat', 'dog', 'monkey', 'cow', 'crocodile', 'elephant', 'lion', 'tiger', 'giraffe', 'zebra']
 theme_birds = ['raven', 'eagle', 'duck', 'sparrow', 'dove', 'parrot', 'seagull', 'pelican', 'flamingo', 'marabou']
 theme_jobs = ['programmer', 'analyst', 'actor', 'singer', 'engineer', 'architect', 'barber', 'scientist', 'lawyer',
-                'designer']
+              'designer']
 theme_body_parts = ['head', 'neck', 'arm', 'leg', 'foot', 'arm', 'chest', 'knee', 'elbow', 'ankle']
 
 theme_index = random.choice(range(0, 4))
 
 if theme_index == 0:
-     theme_name = "animals"
-     words = theme_animals
+    theme_name = "animals"
+    words = theme_animals
 elif theme_index == 1:
-     theme_name = "birds"
-     words = theme_birds
+    theme_name = "birds"
+    words = theme_birds
 elif theme_index == 2:
-     theme_name = "professions"
-     words = theme_jobs
+    theme_name = "professions"
+    words = theme_jobs
 elif theme_index == 3:
-     theme_name = "body parts"
-     words = theme_body_parts
+    theme_name = "body parts"
+    words = theme_body_parts
 
 word = random.choice(words)
 
@@ -182,7 +182,7 @@ def get_wrong_attempts_word():
     return wrong_attempts_words[wrong_attempts]
 
 
-# Дефинираме функцията, която ще бъде извиквана при натискане на буква
+# Define the function that will be called when the letter is pressed
 def guess_letter(letter):
     if letter in word:
         global wrong_attempts
@@ -194,11 +194,11 @@ def guess_letter(letter):
             show_message(f"Congratulations! You guessed The word is '{word}'!")
             file = "resources\win.mp3"
             playsound(file)
-            # root.quit() # Не затваряме играта веднага след победа
+            # root.quit() # Don't close the game immediately after a win
     else:
-        global wrong_attempts  # това не съм сигурен, без него работи, но дава warning :)
+        global wrong_attempts
         wrong_guesses.add(letter)
-        wrong_attempts += 1  # увеличаваме брояча на грешните опити
+        wrong_attempts += 1  # increment the counter of wrong attempts
         update_display()
         winsound.Beep(250, 500)
         if wrong_attempts >= MAX_TURNS:
@@ -210,11 +210,10 @@ def guess_letter(letter):
 
 # Define the function that will refresh the game display
 def update_display():
-
     theme_label.configure(text=f"Guess the word! Theme is: {theme_name.upper()}")
     display_word = " ".join([letter if letter in guesses else "_" for letter in word])
     display_word_label.config(text=display_word)
-    wrong_guesses_label.config(text="Грешни опити: " + ", ".join(sorted(wrong_guesses)))
+    wrong_guesses_label.config(text="Wrong guesses: " + ", ".join(sorted(wrong_guesses)))
     wrong_attempts_label.config(text=f"{get_wrong_attempts_word()}")
 
 
@@ -222,8 +221,8 @@ def update_display():
 def show_message(message):
     message_label.config(text=message)
 
-# код за рестартиране на приложението
 
+# restart the application
 
 def restart():
     global word, guesses, wrong_guesses, wrong_attempts, theme_index, theme_name, words
@@ -233,27 +232,25 @@ def restart():
     wrong_attempts = 0
     theme_index = random.choice(range(0, 4))
     if theme_index == 0:
-        theme_name = "животни"
+        theme_name = "animals"
         words = theme_animals
     elif theme_index == 1:
-        theme_name = "птици"
+        theme_name = "birds"
         words = theme_birds
     elif theme_index == 2:
-        theme_name = "професии"
+        theme_name = "professions"
         words = theme_jobs
     elif theme_index == 3:
-        theme_name = "части на тялото"
+        theme_name = "body parts"
         words = theme_body_parts
     word = random.choice(words)
     # theme_label = tk.Label(root, text="")
     update_display()
 
 
+# Add elements to the graphical application
 
-# Добавяме елементи към графичното приложение
-
-
-theme_label = tk.Label(root, text=f"Познай думата! Темата е: {theme_name.upper()}",
+theme_label = tk.Label(root, text=f"Guess the word! Theme is: {theme_name.upper()}",
                        font=('Arial', 15),
                        bg="#e6f2ff",
                        fg="#0000FF")
@@ -267,7 +264,7 @@ display_word_label.pack()
 
 letters_frame = tk.Frame(root)
 
-for i, letter in enumerate("абвгдежзийклмнопрстуфхцчшщъьюя"):
+for i, letter in enumerate("abcdefghijklmnopqrstuvwxyz"):
     letter_button = tk.Button(letters_frame, text=letter, command=lambda letter=letter: guess_letter(letter),
                               bg="#0000FF",
                               fg="#e6f2ff",
@@ -276,11 +273,11 @@ for i, letter in enumerate("абвгдежзийклмнопрстуфхцчшщ
                               pady=5,
                               # relief=tk.RIDGE,
                               borderwidth=5)
-    letter_button.grid(row=i // 10, column=i % 10)
+    letter_button.grid(row=i // 9, column=i % 9)
 
 letters_frame.pack()
 
-wrong_guesses_label = tk.Label(root, text="Грешни опити:",
+wrong_guesses_label = tk.Label(root, text="Wrong guesses:",
                                bg="#e6f2ff",
                                fg="#0000FF",
                                font=('Arial', 13))
@@ -297,17 +294,14 @@ wrong_attempts_label = tk.Label(root, text=f"{get_wrong_attempts_word()}",
                                 bg="#cce6ff")
 wrong_attempts_label.pack()
 
-restart_button = tk.Button(root, text="Изтегли нова дума и тема", command=restart,
-                                bg="#0000FF",
-                                fg="#e6f2ff",
-                                font=('Consolas', 15),
-                                padx=5,
-                                pady=5,
-                                relief=tk.RIDGE,
-                                borderwidth=5)
+restart_button = tk.Button(root, text="Request new word and theme", command=restart,
+                           bg="#0000FF",
+                           fg="#e6f2ff",
+                           font=('Consolas', 15),
+                           padx=5,
+                           pady=5,
+                           relief=tk.RIDGE,
+                           borderwidth=5)
 restart_button.pack()
-
-
-# Стартираме графичното приложение
 
 root.mainloop()
