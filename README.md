@@ -1,17 +1,8 @@
-# Бесеница
-**Стъпки по изграждането**
-1. Надграждане на предходната конзолна игра [Guess the word](https://github.com/ip681/Guess-the-word) със добавяне на интерфейс на tkinter.
-2. Корекция на grid-a с бутоните, да стане на 3 реда.
-3. Избор на цветова схема и настройка в интерфейса.
-4. Добавяне на звук за победа и загуба, чрез mp3 файл
-5. Добавяне на различен Beep за правилна и грешна буква.
-6. Добавяне на няколко теми, от които да се пада една, от която пък да се пада дума.
-7. Бутон за изтегляне на нова дума и тема.
-8. Записване на програмата като .exe, така че да може да се стартира от друг компютър и да ползва ресурсите за звук и икона.
+#Guess the word#
+This is a word guessing game where a random category is dropped from which a random word is dropped.
+It is played by choosing letters of the alphabet that are marked in the word or in the wrong attempts.
+If you guess the word in 12 tries you win, otherwise you lose.
+At the bottom you have a button where you can request a new word and theme.
 
-**Оставащи стъпки**
-1. Отстояние между бутоните.
-2. Деактивиране на бутоните след 12 опита.
-
-![Бесеница](demoimg.JPG "Бесеница")
+![Guess the word](Guess_the_word.jpg "Guess the word")
 
